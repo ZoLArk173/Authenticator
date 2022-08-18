@@ -1,0 +1,136 @@
+{
+  "i18n": {
+    "en-US": {
+      "appName": "Authenticator"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "app": {
+    "appIdType": 0,
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "appId": 1007250,
+    "appName": "Authenticator",
+    "icon": "icon.png",
+    "vender": "zolark173",
+    "description": "A app to show 2FA code on your watch."
+  },
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "targets": {
+    "gtr3-pro": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3-pro",
+          "deviceSource": 229
+        },
+        {
+          "name": "gtr3-pro-w",
+          "deviceSource": 230
+        }
+      ],
+      "designWidth": 480
+    },
+    "gtr3": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3",
+          "deviceSource": 226
+        },
+        {
+          "name": "gtr3-w",
+          "deviceSource": 227
+        }
+      ],
+      "designWidth": 454
+    },
+    "gts3": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gts3",
+          "deviceSource": 224
+        },
+        {
+          "name": "gts3-w",
+          "deviceSource": 225
+        }
+      ],
+      "designWidth": 390
+    },
+    "t-rex2": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
+        }
+      ],
+      "designWidth": 454
+    }
+  },
+  "configVersion": "v2",
+  "permissions": []
+}
