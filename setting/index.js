@@ -111,7 +111,7 @@ AppSettingsPage({
 							},
 							[
 								TextInput({
-									label: item.account,
+									label: item.issuer,
 									bold: true,
 									value: item.uri,
 									subStyle: {

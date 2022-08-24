@@ -116,7 +116,7 @@ Page({
 							h: 90,
 							color: 0xffffff,
 							key: 'otp',
-							text_size: 85,
+							text_size: px(85),
 							align_h: hmUI.align.LEFT,
 						},
 					],
