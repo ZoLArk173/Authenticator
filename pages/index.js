@@ -25,7 +25,7 @@ Page({
 				this.state.dataList = result
 				this.updateList()
 			})
-			.catch((res) => {})
+			.catch((res) => { })
 	},
 	updateList() {
 		const { dataList } = this.state
@@ -165,6 +165,19 @@ Page({
 	},
 	build() {
 		this.createList()
+		const imgAnimation = hmUI.createWidget(hmUI.widget.IMG_ANIM, {
+			anim_path: 'arc',
+			anim_prefix: 'frame',
+			anim_ext: 'png',
+			anim_fps: 1,
+			anim_size: 30,
+			repeat_count: 0,
+			anim_status: 3,
+			x: 0,
+			y: 0,
+		})
+		imgAnimation.setProperty(hmUI.prop.ANIM_STATUS, hmUI.anim_status.START)
+
 	},
 	onDestory() {
 		writeFileSync(this.state.dataList, false)
