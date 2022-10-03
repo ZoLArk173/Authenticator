@@ -1,5 +1,4 @@
-import { gettext } from 'i18n'
-import { readFileSync, writeFileSync } from '../utils/fs.js'
+import {readFileSync, writeFileSync} from '../utils/fs.js'
 import auth from '../utils/auth.js'
 
 const { messageBuilder } = getApp()._options.globalData
@@ -13,8 +12,7 @@ Page({
 
 	onMessage() {
 		messageBuilder.on('call', ({ payload: buf }) => {
-			const data = messageBuilder.buf2Json(buf)
-			this.state.dataList = data
+			this.state.dataList = messageBuilder.buf2Json(buf)
 			this.updateList()
 		})
 	},
@@ -30,7 +28,7 @@ Page({
 	updateList() {
 		const { dataList } = this.state
 		var otpList = [{ name: 'Authenticator' }]
-		dataList.forEach(function (item, i) {
+		dataList.forEach(function (item) {
 			var authObj = new auth(item.account, item.secret, item.issuer)
 			var otp = authObj.getOtp()
 			otp = otp.slice(0, 3) + ' ' + otp.slice(3)
@@ -166,7 +164,7 @@ Page({
 	build() {
 		this.createList()
 		const imgAnimation = hmUI.createWidget(hmUI.widget.IMG_ANIM, {
-			anim_path: 'arc',
+			anim_path: 'progress_bar',
 			anim_prefix: 'frame',
 			anim_ext: 'png',
 			anim_fps: 1,
