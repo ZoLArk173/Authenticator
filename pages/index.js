@@ -71,7 +71,7 @@ Page({
 	createList() {
 		const deviceInfo = hmSetting.getDeviceInfo()
 		const dWidth = deviceInfo.width
-		const dHeight = deviceInfo.height
+		const dHeight = deviceInfo.height - 112
 		const cardWidth = dWidth * 0.8
 
 		this.state.scrollList = hmUI.createWidget(hmUI.widget.SCROLL_LIST, {
@@ -163,18 +163,16 @@ Page({
 	},
 	build() {
 		this.createList()
-		const imgAnimation = hmUI.createWidget(hmUI.widget.IMG_ANIM, {
-			anim_path: 'progress_bar',
-			anim_prefix: 'frame',
-			anim_ext: 'png',
-			anim_fps: 1,
-			anim_size: 30,
-			repeat_count: 0,
-			anim_status: 3,
+		const arc = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
+			w: 480,
+			h: 480,
+			start_angle: -90,
+			end_angle: 270,
+			color: 0xfc6950,
+			line_width: 10
 		})
-		imgAnimation.setProperty(hmUI.prop.ANIM_STATUS, hmUI.anim_status.START)
 
 	},
 	onDestory() {
