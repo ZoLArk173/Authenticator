@@ -168,8 +168,8 @@ Page({
 			y: 0,
 			w: 480,
 			h: 480,
-			start_angle: -90,
-			end_angle: 270,
+			start_angle: -35,
+			end_angle: 215,
 			color: 0xfc6950,
 			line_width: 10
 		})
