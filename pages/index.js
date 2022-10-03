@@ -162,17 +162,25 @@ Page({
 		this.getAccountList()
 	},
 	build() {
+		const jstime = hmSensor.createSensor(hmSensor.id.TIME)
 		this.createList()
+		let start_angle =  150
 		const arc = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
 			w: 480,
 			h: 480,
-			start_angle: -150,
-			end_angle: 150,
+			start_angle: start_angle,
+			end_angle: 210,
 			color: 0xfc6950,
 			line_width: 10
 		})
+		setInterval(() => {
+			const currentSec = jstime.second
+			const elapsedSec = currentSec % 30
+			start_angle = 150 + 2 * elapsedSec
+			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
+		}, 1000);
 
 	},
 	onDestory() {
