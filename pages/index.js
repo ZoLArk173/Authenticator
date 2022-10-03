@@ -71,7 +71,7 @@ Page({
 	createList() {
 		const deviceInfo = hmSetting.getDeviceInfo()
 		const dWidth = deviceInfo.width
-		const dHeight = deviceInfo.height - 112
+		const dHeight = deviceInfo.height
 		const cardWidth = dWidth * 0.8
 
 		this.state.scrollList = hmUI.createWidget(hmUI.widget.SCROLL_LIST, {
@@ -168,8 +168,8 @@ Page({
 			y: 0,
 			w: 480,
 			h: 480,
-			start_angle: -30,
-			end_angle: 210,
+			start_angle: -150,
+			end_angle: 150,
 			color: 0xfc6950,
 			line_width: 10
 		})
