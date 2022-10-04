@@ -1,5 +1,4 @@
-import { gettext } from 'i18n'
-import { readFileSync, writeFileSync } from '../utils/fs.js'
+import {readFileSync, writeFileSync} from '../utils/fs.js'
 import auth from '../utils/auth.js'
 
 const { messageBuilder } = getApp()._options.globalData
@@ -13,8 +12,7 @@ Page({
 
 	onMessage() {
 		messageBuilder.on('call', ({ payload: buf }) => {
-			const data = messageBuilder.buf2Json(buf)
-			this.state.dataList = data
+			this.state.dataList = messageBuilder.buf2Json(buf)
 			this.updateList()
 		})
 	},
@@ -30,7 +28,7 @@ Page({
 	updateList() {
 		const { dataList } = this.state
 		var otpList = [{ name: 'Authenticator' }]
-		dataList.forEach(function (item, i) {
+		dataList.forEach(function (item) {
 			var authObj = new auth(item.account, item.secret, item.issuer)
 			var otp = authObj.getOtp()
 			otp = otp.slice(0, 3) + ' ' + otp.slice(3)
@@ -164,19 +162,25 @@ Page({
 		this.getAccountList()
 	},
 	build() {
+		const jstime = hmSensor.createSensor(hmSensor.id.TIME)
 		this.createList()
-		const imgAnimation = hmUI.createWidget(hmUI.widget.IMG_ANIM, {
-			anim_path: 'arc',
-			anim_prefix: 'frame',
-			anim_ext: 'png',
-			anim_fps: 1,
-			anim_size: 30,
-			repeat_count: 0,
-			anim_status: 3,
+		let start_angle =  150
+		const arc = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
+			w: 480,
+			h: 480,
+			start_angle: start_angle,
+			end_angle: 210,
+			color: 0xfc6950,
+			line_width: 10
 		})
-		imgAnimation.setProperty(hmUI.prop.ANIM_STATUS, hmUI.anim_status.START)
+		setInterval(() => {
+			const currentSec = jstime.second
+			const elapsedSec = currentSec % 30
+			start_angle = 150 + 2 * elapsedSec
+			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
+		}, 1000);
 
 	},
 	onDestory() {
