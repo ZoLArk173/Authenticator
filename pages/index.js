@@ -151,7 +151,9 @@ Page({
 		const deviceInfo = hmSetting.getDeviceInfo()
 		const dWidth = deviceInfo.width
 		const dHeight = deviceInfo.height
-		const jstime = hmSensor.createSensor(hmSensor.id.TIME)
+		const jsTime = hmSensor.createSensor(hmSensor.id.TIME)
+		const elapsedSec = jsTime.second % 30
+		let otpExpireTime = jsTime.utc - elapsedSec + 30
 		const arcBg = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
@@ -167,17 +169,20 @@ Page({
 			y: 0,
 			w: dWidth,
 			h: dHeight,
-			start_angle: 210 - 2 * (jstime.second % 30),
+			start_angle: 210 - 2 * elapsedSec,
 			end_angle: 150,
 			color: 0xfc6950,
 			line_width: 15
 		})
 		setInterval(() => {
-			const currentSec = jstime.second
+			const currentSec = jsTime.second
 			const elapsedSec = currentSec % 30
 			const start_angle = 210 - 2 * elapsedSec
 			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
-			if (elapsedSec == 0) this.updateList()
+			if (jsTime.utc > otpExpireTime) {
+				otpExpireTime = jsTime.utc - elapsedSec + 30;
+				this.updateList()
+			}
 		}, 1000);
 	},
 
