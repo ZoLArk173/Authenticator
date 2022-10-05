@@ -152,13 +152,22 @@ Page({
 		const dWidth = deviceInfo.width
 		const dHeight = deviceInfo.height
 		const jstime = hmSensor.createSensor(hmSensor.id.TIME)
-		let start_angle =  210
+		const arcBg = hmUI.createWidget(hmUI.widget.ARC, {
+			x: 0,
+			y: 0,
+			w: dWidth,
+			h: dHeight,
+			start_angle: 210,
+			end_angle: 150,
+			color: 0x641002,
+			line_width: 20
+		})
 		const arc = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
 			w: dWidth,
 			h: dHeight,
-			start_angle: start_angle,
+			start_angle: 210 - 2 * (jstime.second % 30),
 			end_angle: 150,
 			color: 0xfc6950,
 			line_width: 20
@@ -166,8 +175,9 @@ Page({
 		setInterval(() => {
 			const currentSec = jstime.second
 			const elapsedSec = currentSec % 30
-			start_angle = 210 - 2 * elapsedSec
+			const start_angle = 210 - 2 * elapsedSec
 			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
+			if (elapsedSec == 0) updateList()
 		}, 1000);
 	},
 
