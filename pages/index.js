@@ -160,7 +160,7 @@ Page({
 			start_angle: 210,
 			end_angle: 150,
 			color: 0x641002,
-			line_width: 20
+			line_width: 15
 		})
 		const arc = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
@@ -170,14 +170,14 @@ Page({
 			start_angle: 210 - 2 * (jstime.second % 30),
 			end_angle: 150,
 			color: 0xfc6950,
-			line_width: 20
+			line_width: 15
 		})
 		setInterval(() => {
 			const currentSec = jstime.second
 			const elapsedSec = currentSec % 30
 			const start_angle = 210 - 2 * elapsedSec
 			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
-			if (elapsedSec == 0) updateList()
+			if (elapsedSec == 0) this.updateList()
 		}, 1000);
 	},
 
