@@ -185,17 +185,6 @@ Page({
 			}
 		}, 1000);
 	},
-
-	refreshAndUpdate(dataList = []) {
-		this.state.dataList = []
-		this.createAndUpdateList()
-
-		setTimeout(() => {
-			this.state.dataList = dataList
-			this.createAndUpdateList()
-		}, 20)
-	},
-
 	onInit() {
 		this.onMessage()
 		this.getAccountList()
@@ -203,7 +192,6 @@ Page({
 	build() {
 		this.createList()
 		this.createArc()
-
 	},
 	onDestory() {
 		writeFileSync(this.state.dataList, false)
