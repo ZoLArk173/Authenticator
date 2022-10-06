@@ -179,7 +179,7 @@ Page({
 			const elapsedSec = currentSec % 30
 			const start_angle = 210 - 2 * elapsedSec
 			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
-			if (jsTime.utc >= otpExpiryTime) {
+			if (jsTime.utc > otpExpiryTime) {
 				otpExpiryTime = jsTime.utc - elapsedSec + 30;
 				this.updateList()
 			}
