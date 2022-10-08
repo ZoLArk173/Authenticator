@@ -1,5 +1,4 @@
-import { gettext } from 'i18n'
-import { readFileSync, writeFileSync } from '../utils/fs.js'
+import {readFileSync, writeFileSync} from '../utils/fs.js'
 import auth from '../utils/auth.js'
 
 const { messageBuilder } = getApp()._options.globalData
@@ -13,8 +12,7 @@ Page({
 
 	onMessage() {
 		messageBuilder.on('call', ({ payload: buf }) => {
-			const data = messageBuilder.buf2Json(buf)
-			this.state.dataList = data
+			this.state.dataList = messageBuilder.buf2Json(buf)
 			this.updateList()
 		})
 	},
@@ -25,12 +23,12 @@ Page({
 				this.state.dataList = result
 				this.updateList()
 			})
-			.catch((res) => {})
+			.catch((res) => { })
 	},
 	updateList() {
 		const { dataList } = this.state
 		var otpList = [{ name: 'Authenticator' }]
-		dataList.forEach(function (item, i) {
+		dataList.forEach(function (item) {
 			var authObj = new auth(item.account, item.secret, item.issuer)
 			var otp = authObj.getOtp()
 			otp = otp.slice(0, 3) + ' ' + otp.slice(3)
@@ -149,22 +147,51 @@ Page({
 		})
 		this.updateList()
 	},
-	refreshAndUpdate(dataList = []) {
-		this.state.dataList = []
-		this.createAndUpdateList()
-
-		setTimeout(() => {
-			this.state.dataList = dataList
-			this.createAndUpdateList()
-		}, 20)
+	createArc() {
+		const deviceInfo = hmSetting.getDeviceInfo()
+		const dWidth = deviceInfo.width
+		const dHeight = deviceInfo.height
+		const jsTime = hmSensor.createSensor(hmSensor.id.TIME)
+		const elapsedSec = jsTime.second % 30
+		let otpExpiryTime = jsTime.utc - elapsedSec + 30
+		const arcBg = hmUI.createWidget(hmUI.widget.ARC, {
+			x: 0,
+			y: 0,
+			w: dWidth,
+			h: dHeight,
+			start_angle: 210,
+			end_angle: 150,
+			color: 0x641002,
+			line_width: 15
+		})
+		const arc = hmUI.createWidget(hmUI.widget.ARC, {
+			x: 0,
+			y: 0,
+			w: dWidth,
+			h: dHeight,
+			start_angle: 210 - 2 * elapsedSec,
+			end_angle: 150,
+			color: 0xfc6950,
+			line_width: 15
+		})
+		setInterval(() => {
+			const currentSec = jsTime.second
+			const elapsedSec = currentSec % 30
+			const start_angle = 210 - 2 * elapsedSec
+			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
+			if (jsTime.utc > otpExpiryTime) {
+				otpExpiryTime = jsTime.utc - elapsedSec + 30;
+				this.updateList()
+			}
+		}, 1000);
 	},
-
 	onInit() {
 		this.onMessage()
 		this.getAccountList()
 	},
 	build() {
 		this.createList()
+		this.createArc()
 	},
 	onDestory() {
 		writeFileSync(this.state.dataList, false)
