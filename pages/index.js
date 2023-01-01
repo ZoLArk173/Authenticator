@@ -193,7 +193,7 @@ Page({
 		this.createList()
 		this.createArc()
 	},
-	onDestory() {
+	onDestroy() {
 		writeFileSync(this.state.dataList, false)
 	},
 })
