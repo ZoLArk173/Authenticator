@@ -105,7 +105,7 @@ AppSettingsPage({
 									flex: 1,
 									display: 'flex',
 									flexDirection: 'row',
-									justfyContent: 'center',
+									justifyContent: 'center',
 									alignItems: 'center',
 								},
 							},
