@@ -153,7 +153,7 @@ Page({
 		const dHeight = deviceInfo.height
 		const jsTime = hmSensor.createSensor(hmSensor.id.TIME)
 		const elapsedSec = jsTime.second % 30
-		let otpExpiryTime = jsTime.utc - elapsedSec + 30
+		let otpExpiryTime = jsTime.utc - elapsedSec * 1000 + 30 * 1000
 		const arcBg = hmUI.createWidget(hmUI.widget.ARC, {
 			x: 0,
 			y: 0,
@@ -180,7 +180,7 @@ Page({
 			const start_angle = 210 - 2 * elapsedSec
 			arc.setProperty(hmUI.prop.MORE, {start_angle: start_angle})
 			if (jsTime.utc > otpExpiryTime) {
-				otpExpiryTime = jsTime.utc - elapsedSec + 30;
+				otpExpiryTime = jsTime.utc - elapsedSec * 1000 + 30 * 1000;
 				this.updateList()
 			}
 		}, 1000);
