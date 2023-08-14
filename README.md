@@ -4,6 +4,7 @@ An 2FA app for Zepp OS
 
 # Features
 
+![image](./assets/screenshot.png)
 - Display 2FA codes on the Zepp OS enabled watches.
 - Manage 2FA codes inside Zepp app settings page.
 
