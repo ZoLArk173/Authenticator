@@ -8,28 +8,40 @@ export default function(account, secret, issuer) {
         var base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
         var bits = "";
         var hex = "";
-
-        for (var i = 0; i < base32.length; i++) {
-        var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
-        bits += leftpad(val.toString(2), 5, '0');
+      
+        // strip padding and whitespace; uppercase for lookup
+        var clean = base32.toUpperCase().replace(/=+$/,'').replace(/\s+/g,'');
+      
+        for (var i = 0; i < clean.length; i++) {
+          var c = clean.charAt(i);
+          var val = base32chars.indexOf(c);
+          if (val === -1) {
+            throw new Error("Invalid Base32 character: " + c);
+          }
+          bits += leftpad(val.toString(2), 5, '0');
         }
-
-        for (var i = 0; i + 4 <= bits.length; i += 4) {
-        var chunk = bits.substr(i, 4);
-        hex = hex + parseInt(chunk, 2).toString(16);
+      
+        // keep only full bytes (8 bits)
+        bits = bits.slice(0, bits.length - (bits.length % 8));
+      
+        // convert each byte to two hex chars
+        for (var i = 0; i < bits.length; i += 8) {
+          var byte = bits.slice(i, i + 8);
+          hex += leftpad(parseInt(byte, 2).toString(16), 2, '0');
         }
         return hex;
-
-    }
+      }
 
     function leftpad(str, len, pad) {
-        if (len + 1 >= str.length) {
-        str = Array(len + 1 - str.length).join(pad) + str;
+        if (str.length < len) {
+            str = Array(len + 1 - str.length).join(pad) + str;
         }
         return str;
     }
 
     this.getOtp = function() {
+        const logger = DeviceRuntimeCore.HmLogger.getLogger('helloworld');
+
         var key = base32tohex(secret);
         var epoch = Math.round(new Date().getTime() / 1000.0);
         var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
