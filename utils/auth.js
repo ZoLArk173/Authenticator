@@ -40,7 +40,6 @@ export default function(account, secret, issuer) {
     }
 
     this.getOtp = function() {
-        const logger = DeviceRuntimeCore.HmLogger.getLogger('helloworld');
 
         var key = base32tohex(secret);
         var epoch = Math.round(new Date().getTime() / 1000.0);
