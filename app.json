@@ -9,8 +9,8 @@
     "appIdType": 0,
     "appType": "app",
     "version": {
-      "code": 1,
-      "name": "1.0.1"
+      "code": 2,
+      "name": "1.0.2"
     },
     "appId": 1007250,
     "appName": "Authenticator",
@@ -20,8 +20,6 @@
   },
   "runtime": {
     "apiVersion": {
-      "compatible": "1.0.0",
-      "target": "1.0.1",
       "minVersion": "1.0.0"
     }
   },
